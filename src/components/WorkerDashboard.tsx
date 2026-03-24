@@ -175,8 +175,8 @@ export default function WorkerDashboard() {
 
   return (
     <div className="grid gap-4">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
-        <div className="text-sm font-semibold">Worker Dashboard</div>
+      <div className="glass-card rounded-2xl p-4 text-white">
+        <div className="text-base font-semibold">Provider Dashboard</div>
         {worker ? (
           <div className="mt-1 text-xs text-white/60">
             Your categories: {worker.categories.join(', ')} • Rating: {worker.ratingAvg.toFixed(1)} ({worker.ratingCount})
@@ -184,50 +184,50 @@ export default function WorkerDashboard() {
         ) : null}
         <div className="mt-2 flex flex-wrap gap-2">
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'browse'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('browse')}
           >
             Browse Requests ({openRequests.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'assigned'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('assigned')}
           >
             My Jobs ({myActiveAssigned.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'completed'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('completed')}
           >
             Completed ({myCompletedAssigned.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'actions'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('actions')}
           >
             Needs Action ({needsMyAction.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'profile'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('profile')}
           >
@@ -348,7 +348,7 @@ export default function WorkerDashboard() {
 }
 
 function CardShell({ children }: { children: ReactNode }) {
-  return <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">{children}</div>
+  return <div className="glass-card rounded-2xl p-4 text-white">{children}</div>
 }
 
 function WorkerJobCard({ req }: { req: ServiceRequest }) {

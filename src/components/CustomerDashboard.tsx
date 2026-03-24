@@ -124,64 +124,65 @@ export default function CustomerDashboard({
 
   return (
     <div className="grid gap-4">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
-        <div className="text-sm font-semibold">Seeker Dashboard</div>
+      <div className="glass-card rounded-2xl p-4 text-white">
+        <div className="text-base font-semibold">Seeker Dashboard</div>
+        <div className="mt-1 text-xs text-white/70">Find skills, create requests, and manage your bookings in one place.</div>
         <div className="mt-2 flex flex-wrap gap-2">
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'skills'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('skills')}
           >
             Skills
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'create'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('create')}
           >
             New Request
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'my'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('my')}
           >
             My Requests
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'completed'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('completed')}
           >
             Completed ({myCompletedRequests.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'confirm'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('confirm')}
           >
             Needs Action ({needsMyAction.length})
           </button>
           <button
-            className={`rounded-xl border px-3 py-2 text-sm ${
+            className={`pill-tab px-3 py-2 text-sm ${
               activeTab === 'workers'
-                ? 'border-white/20 bg-white/10'
-                : 'border-white/10 hover:bg-white/5'
+                ? 'pill-tab-active'
+                : ''
             }`}
             onClick={() => setActiveTab('workers')}
           >
@@ -309,7 +310,7 @@ export default function CustomerDashboard({
 }
 
 function CardShell({ children }: { children: ReactNode }) {
-  return <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">{children}</div>
+  return <div className="glass-card rounded-2xl p-4 text-white">{children}</div>
 }
 
 function CustomerRequestCard({

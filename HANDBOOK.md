@@ -1,6 +1,6 @@
-# Maraamathu User Handbook
+# Fannu Varin User Handbook
 
-Complete guide for using the Maraamathu Service Marketplace Platform
+Complete guide for using the Fannu Varin skills marketplace platform.
 
 ---
 
@@ -19,24 +19,24 @@ Complete guide for using the Maraamathu Service Marketplace Platform
 
 ## Getting Started
 
-### What is Maraamathu?
+### What is Fannu Varin?
 
-Maraamathu is a service marketplace platform that connects:
+Fannu Varin is a skills marketplace platform that connects:
 - **Customers** who need services (home repairs, maintenance, etc.)
 - **Workers** who provide skilled services (plumbers, electricians, AC technicians, etc.)
 - **Admins** who manage the platform
 
 ### Accessing the Platform
 
-1. Visit **https://maramaathu.vercel.app**
+1. Visit **https://fannu-verin.vercel.app/**
 2. Click **"Sign In"**
 3. Choose your sign-in method:
    - Google account (quick)
    - Email and password
 
-### Install Maraamathu as an App (PWA)
+### Install Fannu Varin as an App (PWA)
 
-You can install Maraamathu on your phone so it opens like an app.
+You can install Fannu Varin on your phone so it opens like an app.
 
 - **Android (Chrome)**
   1. Open https://maramaathu.vercel.app
@@ -458,7 +458,7 @@ A: Yes, edit your profile anytime.
 
 ### Data Privacy
 
-- Your data is stored securely on Supabase
+- Your data is stored securely using Firebase/Firestore
 - Only necessary information is shared
 - Admins can access data for platform management
 - You can request account deletion
@@ -471,7 +471,7 @@ Report immediately if you encounter:
 - Payment disputes
 - Technical issues
 
-Contact: [GitHub Issues](https://github.com/Rettey-G/Maramaathu/issues)
+Contact: [GitHub Issues](https://github.com/retteygold/Fannu-Verin/issues)
 
 ---
 
@@ -519,8 +519,8 @@ This handbook is updated with each platform release. Check the [Changelog](./CHA
 
 **Need More Help?**
 
-- Check [GitHub Issues](https://github.com/Rettey-G/Maramaathu/issues)
+- Check [GitHub Issues](https://github.com/retteygold/Fannu-Verin/issues)
 - Contact platform admin
 - Review this handbook again
 
-**Maraamathu - Get it done.**
+**Fannu Varin - Find skills. Offer skills.**

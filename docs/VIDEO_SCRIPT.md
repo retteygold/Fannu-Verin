@@ -1,4 +1,4 @@
-# Maraamathu - Promotional Video Script
+# Fannu Varin - Promotional Video Script
 
 ## Video Overview
 - **Duration:** 60-90 seconds
@@ -28,7 +28,7 @@
 **Visual:** App logo animation, app interface showcase on phone
 
 **Audio (Upbeat music starts):**
-> "Introducing Maraamathu - Maldives' service marketplace"
+> "Introducing Fannu Varin - Maldives' skills marketplace"
 
 **Text on screen:**
 - "🔧 Find verified service providers"
@@ -125,17 +125,17 @@
 **Visual:** App download QR code, website URL
 
 **Audio:**
-> "Maraamathu - Get it done."
+> "Fannu Varin - Find skills. Offer skills."
 > "Download now!"
 
 **Text on screen:**
-- "maramaathu.vercel.app"
+- "fannu-verin.vercel.app"
 - QR Code
 - "Install as an app (PWA)"
 - "Free to use"
 
 **Final tagline:**
-> "Maraamathu - Dhivehi raajjeyge service marketplace"
+> "Fannu Varin - Dhivehi raajjeyge skills marketplace"
 
 ---
 

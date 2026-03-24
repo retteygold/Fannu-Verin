@@ -1,10 +1,6 @@
-# Maraamathu Setup Guide 🚀
+# Fannu Varin Setup Guide 🚀
 
-This guide will help you set up the Maraamathu application locally.
-
-This project is currently a **LocalStorage-based demo** (no Supabase required).
-
-If you are using Supabase Auth + Admin user management, follow the section "Supabase setup" below.
+This guide helps you set up Fannu Varin locally with Firebase + Cloudinary.
 
 ## 📋 Prerequisites
 
@@ -27,81 +23,73 @@ npm run dev
 
 ### 3.2 Test the Application
 1. Open http://localhost:5173
-2. Sign in as any demo profile:
-   - Customer: `customer@demo.com`
-   - Worker: `worker@demo.com`
-   - Admin: `admin@demo.com`
-3. Create a service request as Customer
-4. Open a second browser window as Worker and:
-   - mark **I'm Interested**
-   - optionally submit **Quotation (MVR)**
-5. As Customer, choose a worker/quotation and progress the workflow
+2. Sign up or sign in with email/password or Google
+3. Choose role: Seeker / Provider
+4. Provider: publish a skill listing
+5. Seeker: browse skills and send booking requests
 
-## 🔐 Supabase setup (Auth + Admin user management)
+## 🔐 Required Environment Variables
 
-### Environment variables
-
-Create a `.env.local` with:
+Create `.env.local`:
 
 ```bash
-VITE_SUPABASE_URL=YOUR_SUPABASE_URL
-VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_upload_preset
 ```
 
-### Deploy Admin user management Edge Function
+## 🔥 Firebase Setup
 
-The Admin panel uses the Supabase Edge Function `admin-users` to securely:
+1. Create a Firebase project.
+2. Enable Authentication providers:
+   - Email/Password
+   - Google (optional but supported)
+3. Enable Firestore.
+4. Add Firestore rules:
 
-- Create users
-- Delete users
-- Reset passwords
-
-1) Install Supabase CLI and login
-
-```bash
-npm i -g supabase
-supabase login
+```txt
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /profiles/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /listings/{id} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && request.resource.data.providerId == request.auth.uid;
+      allow delete: if false;
+    }
+    match /bookings/{id} {
+      allow read: if request.auth != null
+        && (resource.data.seekerId == request.auth.uid || resource.data.providerId == request.auth.uid);
+      allow create: if request.auth != null
+        && request.resource.data.seekerId == request.auth.uid;
+      allow update: if request.auth != null
+        && (resource.data.seekerId == request.auth.uid || resource.data.providerId == request.auth.uid);
+      allow delete: if false;
+    }
+  }
+}
 ```
 
-2) Link your project
+## ☁️ Cloudinary Setup
 
-```bash
-supabase link --project-ref <your-project-ref>
-```
+1. Create a Cloudinary account.
+2. Create an **unsigned** upload preset.
+3. Set:
+   - `VITE_CLOUDINARY_CLOUD_NAME`
+   - `VITE_CLOUDINARY_UPLOAD_PRESET`
 
-3) Set function secret (Service Role key)
+## 🧹 Reset App Data
 
-```bash
-supabase secrets set SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
-```
-
-4) Deploy the function
-
-```bash
-supabase functions deploy admin-users
-```
-
-5) Test
-
-- Log in as an Admin
-- Open the Admin dashboard
-- Create a Customer/Worker (email + temp password)
-- Use **Reset Password** / **Delete** / **Active/Inactive**
-
-## ✅ Completed jobs
-
-- Customer and Worker dashboards contain a **Completed** tab.
-- Completed jobs are separated from active jobs.
-
-## � Admin activation/deactivation
-
-- Admin can activate/deactivate customers and workers.
-- Deactivated profiles will not show up in the Sign in list.
-
-## 🧹 Resetting demo data
-
-Since the database is LocalStorage, you can reset state by clearing site data in your browser:
-
+For local testing, clear browser site storage:
 - Chrome/Edge: DevTools -> Application -> Storage -> Clear site data
 
 ## 📱 Step 5: Mobile Testing
@@ -113,14 +101,10 @@ The application is fully responsive. Test on:
 
 ## 🔧 Step 6: Optional Enhancements
 
-### 6.1 Add Storage for Profile Pictures
-1. In Supabase, create a Storage bucket called `profiles`
-2. Set up appropriate storage policies
-3. Update the worker profile form to handle image uploads
-
-### 6.2 Enable Email Notifications
-1. Configure SMTP settings in Supabase
-2. Create email templates for:
+### 6.1 Enable Email Notifications
+1. Configure an email provider (SendGrid, Resend, etc.)
+2. Trigger emails from backend functions (Firebase Functions or server)
+3. Create email templates for:
    - New booking notifications
    - Booking status updates
    - Review requests
@@ -134,25 +118,26 @@ The application is fully responsive. Test on:
 
 ### Common Issues
 
-**"I don't see Admin in the sign-in list"**
-- Clear LocalStorage (see "Resetting demo data" above)
-- Reload the page
+**Blank screen on Vercel**
+- Usually missing `VITE_FIREBASE_*` variables in Vercel
+- Add env vars and redeploy
 
-**"A user disappeared from sign-in"**
-- Admin may have deactivated that profile. Re-activate in Admin Dashboard.
+**Image upload fails**
+- Check Cloudinary cloud name and upload preset
+- Ensure preset is unsigned
 
 ## 📞 Support
 
 If you encounter issues:
 1. Check browser console (F12) for error messages
 2. Verify all setup steps were completed
-3. Check Supabase logs for database errors
+3. Check Firebase/Firestore logs and browser console errors
 4. Review Vercel deployment logs for deployment issues
 
 ## 🎉 You're Ready!
 
-Your Maraamathu demo is ready! You can test:
-- Multi-worker interest + quotations
-- Full job workflow
-- Completed jobs separation
-- Admin CRUD + activate/deactivate
+Your Fannu Varin app is ready! You can test:
+- Provider skill listing publishing
+- Seeker listing browse + request
+- Firebase auth flow (email/google)
+- Cloudinary image uploads

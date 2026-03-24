@@ -1,326 +1,85 @@
-# Maraamathu - Maldives Service Marketplace Platform
+# Fannu Varin - Skills Marketplace
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-maramaathu.vercel.app-blue)](https://maramaathu.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-fannu--verin.vercel.app-blue)](https://fannu-verin.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A modern service marketplace platform connecting customers with skilled workers for home and business services. Built with React, TypeScript, Supabase, and Tailwind CSS.
+Fannu Varin is a modern marketplace where people can find skills and skilled people can offer services.
 
-🌐 **Live Site:** https://maramaathu.vercel.app  
-📱 **Mobile-friendly** | 🔐 **Secure Auth** | ⚡ **Real-time Updates**
+Live: https://fannu-verin.vercel.app/
 
----
+## Core Features
 
-## 📋 Table of Contents
+- Seeker / Provider / Admin role-based experience
+- Firebase Authentication (email + Google)
+- Firestore-backed profiles, listings, and bookings
+- Provider skill listings with Cloudinary image upload
+- Seeker browsing and booking requests
+- PWA support and responsive UI
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Quick Start](#quick-start)
-- [User Guide](#user-guide)
-- [Admin Setup](#admin-setup)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
+## Tech Stack
 
----
+- React 18 + TypeScript + Vite
+- Tailwind CSS
+- Firebase (Auth + Firestore)
+- Cloudinary (image uploads)
+- Vercel (deployment)
 
-## 🚀 Features
-
-### For Customers
-- ✅ **Post Jobs** - Create service requests in 30 seconds
-- ✅ **Browse Workers** - View verified worker profiles with ratings
-- ✅ **Compare Quotes** - Receive and compare multiple quotations
-- ✅ **Track Progress** - Real-time updates on job status
-- ✅ **Secure Reviews** - Rate and review completed jobs
-- ✅ **Service Categories** - AC, Plumbing, Electrical, Carpentry, Painting, and more
-
-### For Workers
-- ✅ **Create Profile** - Showcase skills, experience, and portfolio
-- ✅ **Job Notifications** - Get alerted for matching jobs nearby
-- ✅ **Submit Quotes** - Competitive pricing for each job
-- ✅ **Manage Schedule** - Track inspections, work, and payments
-- ✅ **Build Reputation** - Earn ratings and reviews
-- ✅ **Dashboard Analytics** - View job history and earnings
-
-### For Admins
-- ✅ **User Management** - Create, update, delete users
-- ✅ **Password Reset** - Reset passwords for any user
-- ✅ **Account Control** - Activate/deactivate accounts
-- ✅ **Platform Monitoring** - View all jobs and users
-- ✅ **Secure Edge Functions** - Server-side admin operations
-
-### Technical Features
-- 🔐 **Google OAuth** - One-click sign-in
-- ⚡ **Real-time Sync** - Live data updates across all users
-- 📱 **PWA Ready** - Install as mobile app
-- 🎨 **Responsive Design** - Works on all devices
-- 🛡️ **RLS Security** - Row Level Security with Supabase
-- 🌍 **Maldives-focused** - Local service categories and currency (MVR)
-
-### PWA (Install as App)
-
-The website can be installed like a normal app.
-
-- **Android (Chrome)**
-  - Open https://maramaathu.vercel.app
-  - Tap the browser menu
-  - Tap **"Install app"** or **"Add to Home screen"**
-
-- **iPhone (Safari)**
-  - Open https://maramaathu.vercel.app in **Safari** (not inside Facebook/Instagram browser)
-  - Tap **Share**
-  - Tap **"Add to Home Screen"**
-
-If the install option does not show:
-- Make sure you are on **HTTPS**
-- Hard refresh and try again
-- Avoid opening inside an in-app browser
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | React 18, TypeScript, Tailwind CSS |
-| **Backend** | Supabase (Auth, Database, Realtime) |
-| **Edge Functions** | Deno/TypeScript (Admin operations) |
-| **Build** | Vite |
-| **Icons** | Lucide React |
-| **Deployment** | Vercel |
-| **Database** | PostgreSQL + Supabase |
-
----
-
-## ⚡ Quick Start
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-
-### Installation
+## Quick Start
 
 ```bash
-# 1. Clone repository
-git clone https://github.com/Rettey-G/Maramaathu.git
-cd Maramaathu
-
-# 2. Install dependencies
+git clone https://github.com/retteygold/Fannu-Verin.git
+cd Maraamathu
 npm install
-
-# 3. Create environment file
 cp .env.example .env.local
-
-# 4. Add your Supabase credentials to .env.local
-# VITE_SUPABASE_URL=your_supabase_url
-# VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# 5. Start development server
 npm run dev
 ```
 
 Open http://localhost:5173
 
----
+## Environment Variables
 
-## 📖 User Guide
-
-### Getting Started
-
-1. **Sign Up/Login**
-   - Visit https://maramaathu.vercel.app
-   - Click "Sign In"
-   - Use Google sign-in or email/password
-
-2. **Choose Your Role**
-   - **Customer** - Need services done
-   - **Worker** - Provide skilled services
-   - **Admin** - Manage the platform
-
-### Customer Workflow
-
-```
-Post Job → Workers Show Interest → Review Quotes → 
-Accept Quote → Inspection → Work → Payment → Review
-```
-
-1. **Post a Service Request**
-   - Select category (Plumbing, AC, etc.)
-   - Describe the job
-   - Set budget (optional)
-   - Set urgency
-
-2. **Review Interested Workers**
-   - View worker profiles
-   - Check ratings and reviews
-   - Compare quotations
-
-3. **Approve and Track**
-   - Accept a worker/quote
-   - Schedule inspection
-   - Confirm work completion
-   - Leave a review
-
-### Worker Workflow
-
-```
-Create Profile → Browse Jobs → Submit Quote → 
-Get Selected → Complete Work → Receive Payment
-```
-
-1. **Complete Your Profile**
-   - Add skills and categories
-   - Upload work photos
-   - Set contact info
-
-2. **Find Jobs**
-   - Browse available requests
-   - Filter by category
-   - Express interest
-
-3. **Submit Quotes**
-   - Competitive pricing
-   - Add notes
-   - Wait for customer selection
-
-4. **Manage Jobs**
-   - Schedule inspections
-   - Update progress
-   - Mark completion
-
----
-
-## 🔐 Admin Setup
-
-### Initial Admin User
-
-1. Sign up as a regular user
-2. In Supabase Dashboard, go to `profiles` table
-3. Find your user and change `role` to `admin`
-
-### Deploy Admin Edge Function
+Set these in `.env.local`:
 
 ```bash
-# 1. Install Supabase CLI via Scoop (Windows)
-scoop install supabase
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
 
-# 2. Login
-supabase login
-
-# 3. Link project
-supabase link --project-ref your-project-ref
-
-# 4. Set Service Role Key secret
-supabase secrets set SERVICE_ROLE_KEY=your_service_role_key
-
-# 5. Deploy function
-supabase functions deploy admin-users --no-verify-jwt
+VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_upload_preset
 ```
 
-### Admin Capabilities
+Also set the same variables in Vercel project settings.
 
-- **Create Users** - Add customers/workers with temporary passwords
-- **Reset Passwords** - Reset any user's password
-- **Delete Users** - Remove accounts permanently
-- **Activate/Deactivate** - Control account access
+## Firebase Setup (Required)
 
----
+1. Enable Authentication providers you use (Email/Password and Google).
+2. Enable Firestore Database.
+3. Add Firestore rules for `profiles`, `listings`, and `bookings`.
 
-## 🚀 Deployment
+See `SETUP.md` for complete setup steps and a rules template.
 
-### Vercel (Recommended)
+## Documentation
 
-1. Push code to GitHub
-2. Import project in Vercel
-3. Set environment variables:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-4. Deploy
+- [Setup Guide](./SETUP.md)
+- [Changelog](./CHANGELOG.md)
+- [User Handbook](./HANDBOOK.md)
+- [Video Script](./docs/VIDEO_SCRIPT.md)
 
-### Supabase Configuration
+## Contributing
 
-1. **Authentication** → Enable Email + Google OAuth
-2. **URL Configuration** → Add your Vercel domain
-3. **Edge Functions** → Deploy `admin-users` function
-4. **Database** → Run schema from `supabase-schema.sql`
+1. Create branch
+2. Make changes
+3. Run `npm run build`
+4. Open PR
 
-### Environment Variables
+## Support
 
-| Variable | Description |
-|----------|-------------|
-| `VITE_SUPABASE_URL` | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Supabase public anon key |
-| `SUPABASE_SERVICE_ROLE_KEY` | (Server-side only) Admin operations |
+- Issues: https://github.com/retteygold/Fannu-Verin/issues
 
 ---
 
-## 📊 Database Schema
-
-### Tables
-
-- **profiles** - User accounts (customer/worker/admin)
-- **worker_profiles** - Extended worker details
-- **customer_profiles** - Extended customer details
-- **service_requests** - Job postings
-- **reviews** - Ratings and feedback
-
-### Security
-
-All tables have Row Level Security (RLS) enabled:
-- Users can only access their own data
-- Workers see relevant jobs
-- Admins have full read access
-- Edge Functions bypass RLS with Service Role
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/my-feature`
-3. Commit changes: `git commit -m 'Add new feature'`
-4. Push to branch: `git push origin feature/my-feature`
-5. Open a Pull Request
-
-### Code Style
-- TypeScript strict mode
-- ESLint + Prettier
-- Component-based architecture
-- Hooks for state management
-
----
-
-## � Documentation
-
-- [Video Script](./docs/VIDEO_SCRIPT.md) - Marketing video script
-- [Changelog](./CHANGELOG.md) - Version history
-- [User Handbook](./HANDBOOK.md) - Detailed user guide
-- [Setup Guide](./SETUP.md) - Developer setup instructions
-
----
-
-## �️ Roadmap
-
-- [ ] Push notifications
-- [ ] In-app messaging
-- [ ] Payment gateway integration
-- [ ] Mobile app (React Native)
-- [ ] Advanced analytics
-- [ ] Multi-language support
-- [ ] Photo upload for jobs
-
----
-
-## 📄 License
-
-MIT License - see [LICENSE](./LICENSE) file
-
----
-
-## 📞 Contact & Support
-
-- **Issues:** [GitHub Issues](https://github.com/Rettey-G/Maramaathu/issues)
-
----
-
-Built with ❤️ for the Maldives service community.
-
-**Maraamathu - Get it done.**
+Fannu Varin - Find skills. Offer skills.
