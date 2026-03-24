@@ -1,8 +1,5 @@
 import { useState } from 'react'
 import { Navigate, Link, useSearchParams } from 'react-router-dom'
-import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useLanguage } from '../contexts/LanguageContext'
 import type { Role } from '../lib/types'
@@ -10,14 +7,17 @@ import { ArrowLeft, User, Briefcase, CheckCircle } from 'lucide-react'
 
 export default function LoginPage() {
   const { user, role } = useAuth()
+  const { signIn, signUp, signInWithGoogle } = useAuth()
   const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
   const isSignup = searchParams.get('signup') === 'true'
-  const redirectTo = `${window.location.origin}/`
-  
+
   const [mode, setMode] = useState<'login' | 'signup'>(isSignup ? 'signup' : 'login')
-  const [signupRole, setSignupRole] = useState<Role>('customer')
+  const [signupRole, setSignupRole] = useState<Role>('seeker')
   const [signupName, setSignupName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   if (user && role) {
     return <Navigate to="/" replace />
@@ -36,8 +36,8 @@ export default function LoginPage() {
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <Link to="/" className="flex items-center gap-3">
-              <img src="/logo.png" alt="Maraamathu" className="h-10 w-10 rounded-xl border border-white/20 bg-white/10 object-contain" />
-              <span className="text-xl font-bold text-white">Maraamathu</span>
+              <img src="/logo.png" alt="Fannu Varin" className="h-10 w-10 rounded-xl border border-white/20 bg-white/10 object-contain" />
+              <span className="text-xl font-bold text-white">Fannu Varin</span>
             </Link>
             <button
               onClick={() => setMode('login')}
@@ -77,29 +77,29 @@ export default function LoginPage() {
                 <label className="mb-2 block text-sm font-medium text-white/80">{t('auth.selectRole')}</label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
-                    onClick={() => setSignupRole('customer')}
+                    onClick={() => setSignupRole('seeker')}
                     className={`flex flex-col items-center gap-2 rounded-xl border p-4 transition-all ${
-                      signupRole === 'customer'
+                      signupRole === 'seeker'
                         ? 'border-blue-500 bg-blue-500/20'
                         : 'border-white/10 bg-white/5 hover:bg-white/10'
                     }`}
                   >
-                    <User className={`h-6 w-6 ${signupRole === 'customer' ? 'text-blue-400' : 'text-white/60'}`} />
-                    <span className={`text-sm font-medium ${signupRole === 'customer' ? 'text-white' : 'text-white/60'}`}>
-                      {t('roles.customer')}
+                    <User className={`h-6 w-6 ${signupRole === 'seeker' ? 'text-blue-400' : 'text-white/60'}`} />
+                    <span className={`text-sm font-medium ${signupRole === 'seeker' ? 'text-white' : 'text-white/60'}`}>
+                      Skill Seeker
                     </span>
                   </button>
                   <button
-                    onClick={() => setSignupRole('worker')}
+                    onClick={() => setSignupRole('provider')}
                     className={`flex flex-col items-center gap-2 rounded-xl border p-4 transition-all ${
-                      signupRole === 'worker'
+                      signupRole === 'provider'
                         ? 'border-cyan-500 bg-cyan-500/20'
                         : 'border-white/10 bg-white/5 hover:bg-white/10'
                     }`}
                   >
-                    <Briefcase className={`h-6 w-6 ${signupRole === 'worker' ? 'text-cyan-400' : 'text-white/60'}`} />
-                    <span className={`text-sm font-medium ${signupRole === 'worker' ? 'text-white' : 'text-white/60'}`}>
-                      {t('roles.worker')}
+                    <Briefcase className={`h-6 w-6 ${signupRole === 'provider' ? 'text-cyan-400' : 'text-white/60'}`} />
+                    <span className={`text-sm font-medium ${signupRole === 'provider' ? 'text-white' : 'text-white/60'}`}>
+                      Skill Provider
                     </span>
                   </button>
                 </div>
@@ -111,10 +111,10 @@ export default function LoginPage() {
                   <CheckCircle className="mt-0.5 h-5 w-5 text-green-400" />
                   <div>
                     <h3 className="text-sm font-medium text-white">
-                      {signupRole === 'customer' ? t('roles.customer') : t('roles.worker')}
+                      {signupRole === 'seeker' ? 'Skill Seeker' : 'Skill Provider'}
                     </h3>
                     <p className="mt-1 text-xs text-white/60">
-                      {signupRole === 'customer'
+                      {signupRole === 'seeker'
                         ? t('roles.customerDesc')
                         : t('roles.workerDesc')}
                     </p>
@@ -122,45 +122,32 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Auth
-                supabaseClient={supabase}
-                view="sign_up"
-                appearance={{
-                  theme: ThemeSupa,
-                  variables: {
-                    default: {
-                      colors: {
-                        brand: '#3b82f6',
-                        brandAccent: '#06b6d4',
-                        defaultButtonBackground: 'rgba(255,255,255,0.1)',
-                        defaultButtonBackgroundHover: 'rgba(255,255,255,0.2)',
-                        defaultButtonBorder: 'rgba(255,255,255,0.2)',
-                        defaultButtonText: 'white',
-                        inputBackground: 'rgba(255,255,255,0.05)',
-                        inputBorder: 'rgba(255,255,255,0.1)',
-                        inputText: 'white',
-                        inputPlaceholder: 'rgba(255,255,255,0.4)',
-                      },
-                      space: {
-                        buttonPadding: '12px 24px',
-                        inputPadding: '12px 16px',
-                      },
-                      borderWidths: {
-                        buttonBorderWidth: '1px',
-                        inputBorderWidth: '1px',
-                      },
-                      radii: {
-                        borderRadiusButton: '12px',
-                        buttonBorderRadius: '12px',
-                        inputBorderRadius: '12px',
-                      },
-                    },
-                  },
+              <form
+                className="space-y-3"
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  setError('')
+                  const res = await signUp(email, password, signupRole, signupName)
+                  if (res.error) setError(res.error.message)
                 }}
-                providers={['google']}
-                redirectTo={redirectTo}
-                additionalData={{ name: signupName, role: signupRole }}
-              />
+              >
+                <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white" value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                <button className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-3 font-medium text-white">
+                  {t('auth.signUp')}
+                </button>
+              </form>
+              <button
+                onClick={async () => {
+                  setError('')
+                  const res = await signInWithGoogle()
+                  if (res.error) setError(res.error.message)
+                }}
+                className="mt-3 w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white"
+              >
+                Continue with Google
+              </button>
+              {error ? <p className="mt-3 text-sm text-red-300">{error}</p> : null}
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-white/60">
@@ -192,8 +179,8 @@ export default function LoginPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Maraamathu" className="h-10 w-10 rounded-xl border border-white/20 bg-white/10 object-contain" />
-            <span className="text-xl font-bold text-white">Maraamathu</span>
+            <img src="/logo.png" alt="Fannu Varin" className="h-10 w-10 rounded-xl border border-white/20 bg-white/10 object-contain" />
+            <span className="text-xl font-bold text-white">Fannu Varin</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-white/60">{t('auth.noAccount')}</span>
@@ -219,43 +206,32 @@ export default function LoginPage() {
               <p className="mt-2 text-sm text-white/60">{t('auth.signInSubtitle')}</p>
             </div>
 
-            <Auth
-              supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-                variables: {
-                  default: {
-                    colors: {
-                      brand: '#3b82f6',
-                      brandAccent: '#06b6d4',
-                      defaultButtonBackground: 'rgba(255,255,255,0.1)',
-                      defaultButtonBackgroundHover: 'rgba(255,255,255,0.2)',
-                      defaultButtonBorder: 'rgba(255,255,255,0.2)',
-                      defaultButtonText: 'white',
-                      inputBackground: 'rgba(255,255,255,0.05)',
-                      inputBorder: 'rgba(255,255,255,0.1)',
-                      inputText: 'white',
-                      inputPlaceholder: 'rgba(255,255,255,0.4)',
-                    },
-                    space: {
-                      buttonPadding: '12px 24px',
-                      inputPadding: '12px 16px',
-                    },
-                    borderWidths: {
-                      buttonBorderWidth: '1px',
-                      inputBorderWidth: '1px',
-                    },
-                    radii: {
-                      borderRadiusButton: '12px',
-                      buttonBorderRadius: '12px',
-                      inputBorderRadius: '12px',
-                    },
-                  },
-                },
+            <form
+              className="space-y-3"
+              onSubmit={async (e) => {
+                e.preventDefault()
+                setError('')
+                const res = await signIn(email, password)
+                if (res.error) setError(res.error.message)
               }}
-              providers={['google']}
-              redirectTo={redirectTo}
-            />
+            >
+              <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+              <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white" value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+              <button className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-3 font-medium text-white">
+                {t('auth.signIn')}
+              </button>
+            </form>
+            <button
+              onClick={async () => {
+                setError('')
+                const res = await signInWithGoogle()
+                if (res.error) setError(res.error.message)
+              }}
+              className="mt-3 w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white"
+            >
+              Continue with Google
+            </button>
+            {error ? <p className="mt-3 text-sm text-red-300">{error}</p> : null}
 
             <div className="mt-6 text-center">
               <p className="text-sm text-white/60">

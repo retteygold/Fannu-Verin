@@ -4,11 +4,11 @@ import { useDBSnapshot } from '../lib/hooks'
 
 export default function Auth({ onLogin }: { onLogin: (u: SessionUser) => void }) {
   const db = useDBSnapshot()
-  const [role, setRole] = useState<'customer' | 'worker' | 'admin'>('customer')
+  const [role, setRole] = useState<'seeker' | 'provider' | 'admin'>('seeker')
 
   const options = useMemo(() => {
-    if (role === 'customer') return db.customers.filter((c) => c.active)
-    if (role === 'worker') return db.workers.filter((w) => w.active)
+    if (role === 'seeker') return db.customers.filter((c) => c.active)
+    if (role === 'provider') return db.workers.filter((w) => w.active)
     return db.admins.filter((a) => a.active)
   }, [db.admins, db.customers, db.workers, role])
 
@@ -29,31 +29,31 @@ export default function Auth({ onLogin }: { onLogin: (u: SessionUser) => void })
         <div className="mb-3 grid grid-cols-3 gap-2">
           <button
             className={`rounded-xl border px-3 py-2 text-sm ${
-              role === 'customer'
+              role === 'seeker'
                 ? 'border-white/20 bg-white/10'
                 : 'border-white/10 bg-transparent hover:bg-white/5'
             }`}
             onClick={() => {
-              setRole('customer')
+              setRole('seeker')
               const first = db.customers[0]
               setSelectedId(first?.id ?? '')
             }}
           >
-            Customer
+            Seeker
           </button>
           <button
             className={`rounded-xl border px-3 py-2 text-sm ${
-              role === 'worker'
+              role === 'provider'
                 ? 'border-white/20 bg-white/10'
                 : 'border-white/10 bg-transparent hover:bg-white/5'
             }`}
             onClick={() => {
-              setRole('worker')
+              setRole('provider')
               const first = db.workers[0]
               setSelectedId(first?.id ?? '')
             }}
           >
-            Worker
+            Provider
           </button>
           <button
             className={`rounded-xl border px-3 py-2 text-sm ${

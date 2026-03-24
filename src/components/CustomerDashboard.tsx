@@ -12,6 +12,7 @@ import ServiceRequestForm from './ServiceRequestForm'
 import WorkerProfileModal from './WorkerProfileModal'
 import type { ServiceCategory, ServiceRequest, SessionUser, WorkerProfile } from '../lib/types'
 import { useAuth } from '../contexts/AuthContext'
+import SkillBrowse from './SkillBrowse'
 
 const CATEGORIES: Array<ServiceCategory | 'All'> = [
   'All',
@@ -48,8 +49,8 @@ export default function CustomerDashboard({
   profileModalWorkerId,
   setProfileModalWorkerId,
 }: {
-  activeTab: 'create' | 'my' | 'completed' | 'confirm' | 'workers'
-  setActiveTab: (tab: 'create' | 'my' | 'completed' | 'confirm' | 'workers') => void
+  activeTab: 'skills' | 'create' | 'my' | 'completed' | 'confirm' | 'workers'
+  setActiveTab: (tab: 'skills' | 'create' | 'my' | 'completed' | 'confirm' | 'workers') => void
   workerCategory: ServiceCategory | 'All'
   setWorkerCategory: (cat: ServiceCategory | 'All') => void
   workerQuery: string
@@ -60,11 +61,11 @@ export default function CustomerDashboard({
   const { user: authUser } = useAuth()
   const user: SessionUser = useMemo(
     () => ({
-      id: authUser?.id ?? 'temp',
-      role: 'customer',
-      name: (authUser?.user_metadata?.name as string | undefined) ?? authUser?.email ?? 'Customer',
+      id: authUser?.uid ?? 'temp',
+      role: 'seeker',
+      name: authUser?.displayName ?? authUser?.email ?? 'Customer',
     }),
-    [authUser?.email, authUser?.id, authUser?.user_metadata],
+    [authUser?.displayName, authUser?.email, authUser?.uid],
   )
   const { db, loading, error } = useDB()
 
@@ -124,8 +125,18 @@ export default function CustomerDashboard({
   return (
     <div className="grid gap-4">
       <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
-        <div className="text-sm font-semibold">Customer Dashboard</div>
+        <div className="text-sm font-semibold">Seeker Dashboard</div>
         <div className="mt-2 flex flex-wrap gap-2">
+          <button
+            className={`rounded-xl border px-3 py-2 text-sm ${
+              activeTab === 'skills'
+                ? 'border-white/20 bg-white/10'
+                : 'border-white/10 hover:bg-white/5'
+            }`}
+            onClick={() => setActiveTab('skills')}
+          >
+            Skills
+          </button>
           <button
             className={`rounded-xl border px-3 py-2 text-sm ${
               activeTab === 'create'
@@ -178,6 +189,8 @@ export default function CustomerDashboard({
           </button>
         </div>
       </div>
+
+      {activeTab === 'skills' ? <SkillBrowse seekerId={user.id} /> : null}
 
       {activeTab === 'create' ? (
         <ServiceRequestForm

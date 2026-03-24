@@ -13,6 +13,7 @@ import { useDB } from '../lib/supabaseData'
 import { useAuth } from '../contexts/AuthContext'
 import type { ServiceCategory, ServiceRequest, SessionUser } from '../lib/types'
 import WorkerProfileForm from './WorkerProfileForm'
+import SkillListingForm from './SkillListingForm'
 
 function statusLabel(s: ServiceRequest['status']) {
   return s.replace(/_/g, ' ')
@@ -110,11 +111,11 @@ export default function WorkerDashboard() {
   const { user: authUser } = useAuth()
   const user: SessionUser = useMemo(
     () => ({
-      id: authUser?.id ?? 'temp',
-      role: 'worker',
-      name: (authUser?.user_metadata?.name as string | undefined) ?? authUser?.email ?? 'Worker',
+      id: authUser?.uid ?? 'temp',
+      role: 'provider',
+      name: authUser?.displayName ?? authUser?.email ?? 'Worker',
     }),
-    [authUser?.email, authUser?.id, authUser?.user_metadata],
+    [authUser?.displayName, authUser?.email, authUser?.uid],
   )
   const { db, loading, error } = useDB()
   const [activeTab, setActiveTab] = useState<'browse' | 'assigned' | 'completed' | 'actions' | 'profile'>('browse')
@@ -332,7 +333,12 @@ export default function WorkerDashboard() {
         </div>
       ) : null}
 
-      {activeTab === 'profile' ? <WorkerProfileForm user={user} /> : null}
+      {activeTab === 'profile' ? (
+        <div className="grid gap-3">
+          <WorkerProfileForm user={user} />
+          <SkillListingForm providerId={user.id} />
+        </div>
+      ) : null}
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/70">
         Tip: after you accept, ask the Customer to confirm to continue.

@@ -27,8 +27,8 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Maraamathu" className="h-12 w-12 rounded-xl border border-white/20 bg-white/10 object-contain" />
-            <span className="text-2xl font-bold text-white">Maraamathu</span>
+            <img src="/logo.png" alt="Fannu Varin" className="h-12 w-12 rounded-xl border border-white/20 bg-white/10 object-contain" />
+            <span className="text-2xl font-bold text-white">Fannu Varin</span>
           </div>
           <div className="flex items-center gap-4">
             <Link
@@ -209,10 +209,10 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="Maraamathu" className="h-10 w-10 rounded-xl" />
-              <span className="text-xl font-bold text-white">Maraamathu</span>
+              <img src="/logo.png" alt="Fannu Varin" className="h-10 w-10 rounded-xl" />
+              <span className="text-xl font-bold text-white">Fannu Varin</span>
             </div>
-            <p className="text-sm text-white/60">© 2025 Maraamathu. {t('landing.footer.rights')}</p>
+            <p className="text-sm text-white/60">© 2025 Fannu Varin. {t('landing.footer.rights')}</p>
             <div className="flex gap-2">
               <CheckCircle className="h-5 w-5 text-green-400" />
               <span className="text-sm text-white/60">{t('landing.footer.madeIn')}</span>

@@ -1,4 +1,4 @@
-export type Role = 'customer' | 'worker' | 'admin'
+export type Role = 'seeker' | 'provider' | 'admin'
 
 export type ServiceCategory =
   | 'AC'
@@ -142,4 +142,42 @@ export type DB = {
   workers: WorkerProfile[]
   requests: ServiceRequest[]
   reviews: Review[]
+}
+
+export type SkillCategory =
+  | 'HomeRepair'
+  | 'Cleaning'
+  | 'Beauty'
+  | 'Tutoring'
+  | 'IT'
+  | 'Design'
+  | 'Events'
+  | 'Fitness'
+  | 'Other'
+
+export type SkillListing = {
+  id: string
+  providerId: string
+  title: string
+  category: SkillCategory
+  description: string
+  priceFrom?: number
+  location?: string
+  tags: string[]
+  images: string[]
+  active: boolean
+  createdAt: string
+}
+
+export type BookingStatus = 'requested' | 'accepted' | 'declined' | 'scheduled' | 'completed' | 'cancelled'
+
+export type Booking = {
+  id: string
+  listingId: string
+  seekerId: string
+  providerId: string
+  message?: string
+  scheduledFor?: string
+  status: BookingStatus
+  createdAt: string
 }

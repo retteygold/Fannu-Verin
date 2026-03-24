@@ -9,7 +9,7 @@ import type {
   WorkerProfile,
 } from './types'
 
-const STORAGE_KEY = 'maraamathu_db_v1'
+const STORAGE_KEY = 'fannu_verin_db_v1'
 
 type Listener = () => void
 const listeners = new Set<Listener>()

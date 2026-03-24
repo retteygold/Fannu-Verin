@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { updateWorkerProfile } from '../lib/supabaseMutations'
 import { useDB } from '../lib/supabaseData'
+import { uploadImageToCloudinary } from '../lib/cloudinary'
 import type { ServiceCategory, SessionUser } from '../lib/types'
 
 const CATEGORIES: ServiceCategory[] = [
@@ -38,6 +39,7 @@ export default function WorkerProfileForm({ user }: { user: SessionUser }) {
   const [skillsRaw, setSkillsRaw] = useState('')
   const [about, setAbout] = useState('')
   const [promoPosterUrl, setPromoPosterUrl] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
 
   useEffect(() => {
     if (!profile) return
@@ -70,7 +72,7 @@ export default function WorkerProfileForm({ user }: { user: SessionUser }) {
   }
 
   const save = async () => {
-    updateWorkerProfile({
+    await updateWorkerProfile({
       workerId: user.id,
       name,
       email,
@@ -82,6 +84,20 @@ export default function WorkerProfileForm({ user }: { user: SessionUser }) {
       about,
       promoPosterUrl,
     })
+  }
+
+  const onPosterFileChange = async (file?: File) => {
+    if (!file) return
+    try {
+      setIsUploading(true)
+      const url = await uploadImageToCloudinary(file)
+      setPromoPosterUrl(url)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Image upload failed'
+      alert(message)
+    } finally {
+      setIsUploading(false)
+    }
   }
 
   return (
@@ -155,6 +171,13 @@ export default function WorkerProfileForm({ user }: { user: SessionUser }) {
             onChange={(e) => setPromoPosterUrl(e.target.value)}
             placeholder="https://..."
           />
+          <input
+            type="file"
+            accept="image/*"
+            className="mt-2 block w-full text-xs text-white/70 file:mr-3 file:rounded-lg file:border file:border-white/10 file:bg-white/10 file:px-3 file:py-2 file:text-white"
+            onChange={(e) => void onPosterFileChange(e.target.files?.[0])}
+          />
+          {isUploading ? <div className="mt-1 text-xs text-cyan-300">Uploading image to Cloudinary...</div> : null}
         </div>
 
         <div className="md:col-span-2">

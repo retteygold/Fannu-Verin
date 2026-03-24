@@ -3,7 +3,7 @@ import type { ServiceCategory } from '../../lib/types'
 import Layout from '../../components/Layout'
 import CustomerDashboard from '../../components/CustomerDashboard'
 
-export default function CustomerLayout() {
+export default function SeekerLayout() {
   const [activeTab, setActiveTab] = useState<'skills' | 'create' | 'my' | 'completed' | 'confirm' | 'workers'>('skills')
   const [workerCategory, setWorkerCategory] = useState<ServiceCategory | 'All'>('All')
   const [workerQuery, setWorkerQuery] = useState('')
@@ -24,3 +24,4 @@ export default function CustomerLayout() {
     </Layout>
   )
 }
+

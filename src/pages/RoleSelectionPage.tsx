@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext'
 import { User, Briefcase, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react'
 
 export default function RoleSelectionPage() {
-  const [selectedRole, setSelectedRole] = useState<'customer' | 'worker'>('customer')
+  const [selectedRole, setSelectedRole] = useState<'seeker' | 'provider'>('seeker')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { updateRole } = useAuth()
   const { t, language } = useLanguage()
@@ -27,7 +27,7 @@ export default function RoleSelectionPage() {
 
   const roles = [
     {
-      id: 'customer' as const,
+      id: 'seeker' as const,
       icon: User,
       title: t('roles.customer'),
       subtitle: t('roleSelect.customerSubtitle'),
@@ -36,7 +36,7 @@ export default function RoleSelectionPage() {
       color: 'blue',
     },
     {
-      id: 'worker' as const,
+      id: 'provider' as const,
       icon: Briefcase,
       title: t('roles.worker'),
       subtitle: t('roleSelect.workerSubtitle'),

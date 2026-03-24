@@ -29,11 +29,11 @@ export default function AdminDashboard() {
   const { user: authUser } = useAuth()
   const user: SessionUser = useMemo(
     () => ({
-      id: authUser?.id ?? 'temp',
+      id: authUser?.uid ?? 'temp',
       role: 'admin',
-      name: (authUser?.user_metadata?.name as string | undefined) ?? authUser?.email ?? 'Admin',
+      name: authUser?.displayName ?? authUser?.email ?? 'Admin',
     }),
-    [authUser?.email, authUser?.id, authUser?.user_metadata],
+    [authUser?.displayName, authUser?.email, authUser?.uid],
   )
   const { db, loading, error } = useDB()
   const [tab, setTab] = useState<'customers' | 'workers' | 'works'>('customers')
@@ -140,7 +140,7 @@ function WorksAdmin() {
             className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-2 text-sm sm:w-72"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by job/customer/worker"
+            placeholder="Search by job/seeker/provider"
           />
         </div>
 

@@ -4,8 +4,8 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
-import CustomerLayout from './pages/customer/CustomerLayout'
-import WorkerLayout from './pages/worker/WorkerLayout'
+import SeekerLayout from './pages/seeker/SeekerLayout'
+import ProviderLayout from './pages/provider/ProviderLayout'
 import AdminLayout from './pages/admin/AdminLayout'
 import LoadingSpinner from './components/LoadingSpinner'
 
@@ -39,7 +39,7 @@ function AuthenticatedRoutes() {
     return <LoadingSpinner />
   }
 
-  const defaultPath = role === 'admin' ? '/admin' : role === 'worker' ? '/worker' : '/customer'
+  const defaultPath = role === 'admin' ? '/admin' : role === 'provider' ? '/provider' : '/seeker'
 
   return (
     <Routes>
@@ -47,12 +47,12 @@ function AuthenticatedRoutes() {
       <Route path="" element={<Navigate to={defaultPath} replace />} />
 
       <Route
-        path="/customer/*"
-        element={role === 'customer' || role === 'worker' || role === 'admin' ? <CustomerLayout /> : <Navigate to={defaultPath} replace />}
+        path="/seeker/*"
+        element={role === 'seeker' || role === 'provider' || role === 'admin' ? <SeekerLayout /> : <Navigate to={defaultPath} replace />}
       />
       <Route
-        path="/worker/*"
-        element={role === 'worker' || role === 'admin' ? <WorkerLayout /> : <Navigate to={defaultPath} replace />}
+        path="/provider/*"
+        element={role === 'provider' || role === 'admin' ? <ProviderLayout /> : <Navigate to={defaultPath} replace />}
       />
       <Route
         path="/admin/*"
